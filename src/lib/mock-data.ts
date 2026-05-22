@@ -68,6 +68,19 @@ export interface Student {
   trainer: string;
   gymId: string;
   avatar?: string;
+  // Optional extended profile (added for member registration)
+  rg?: string;
+  gender?: "M" | "F" | "Outro";
+  address?: string;
+  city?: string;
+  state?: string;
+  zip?: string;
+  dueDay?: number;
+  paymentMethod?: "pix" | "card" | "boleto" | "cash";
+  mainModality?: string;
+  medicalNotes?: string;
+  emergencyContactName?: string;
+  emergencyContactPhone?: string;
 }
 
 const studentNames = [
@@ -169,6 +182,10 @@ export interface Checkin {
   method: "qr" | "manual" | "biometric";
   status: "ok" | "blocked";
   reason?: string;
+  // Optional fields (added for daily check-in flow)
+  exitAt?: string | null;
+  modality?: string;
+  gymId?: string;
 }
 
 export const CHECKINS: Checkin[] = Array.from({ length: 30 }).map((_, i) => {

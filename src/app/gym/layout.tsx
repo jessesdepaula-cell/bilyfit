@@ -1,5 +1,6 @@
 "use client";
 import { DashShell, type NavGroup } from "@/components/dashboard/DashShell";
+import { GymDataProvider } from "@/lib/store";
 import {
   LayoutDashboard, Users, DollarSign, QrCode, Package, Activity,
   Calendar, GraduationCap, Dumbbell, ClipboardList, MessageSquare, BarChart3, Settings
@@ -30,5 +31,9 @@ const NAV: NavGroup[] = [
 ];
 
 export default function GymLayout({ children }: { children: React.ReactNode }) {
-  return <DashShell nav={NAV} brand="Academia" subBrand="Iron Pump Academy" requireRole="gym_admin">{children}</DashShell>;
+  return (
+    <GymDataProvider>
+      <DashShell nav={NAV} brand="Academia" subBrand="Iron Pump Academy" requireRole="gym_admin">{children}</DashShell>
+    </GymDataProvider>
+  );
 }
