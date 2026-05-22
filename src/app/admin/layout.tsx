@@ -1,7 +1,8 @@
 "use client";
 import { DashShell, type NavGroup } from "@/components/dashboard/DashShell";
+import { GymDataProvider } from "@/lib/store";
 import {
-  LayoutDashboard, Building2, CreditCard, Package, DollarSign, FileText, Headphones, BarChart3, Settings
+  LayoutDashboard, Building2, CreditCard, Package, DollarSign, FileText, Headphones, BarChart3, Settings, Users
 } from "lucide-react";
 
 const NAV: NavGroup[] = [
@@ -10,6 +11,7 @@ const NAV: NavGroup[] = [
     items: [
       { href: "/admin", label: "Dashboard", icon: LayoutDashboard },
       { href: "/admin/gyms", label: "Academias", icon: Building2, badge: 8 },
+      { href: "/admin/students", label: "Alunos", icon: Users },
       { href: "/admin/subscriptions", label: "Assinaturas", icon: CreditCard },
       { href: "/admin/plans", label: "Planos comerciais", icon: Package },
     ],
@@ -32,5 +34,9 @@ const NAV: NavGroup[] = [
 ];
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
-  return <DashShell nav={NAV} brand="Painel CEO" subBrand="BilyFit HQ" requireRole="ceo">{children}</DashShell>;
+  return (
+    <GymDataProvider>
+      <DashShell nav={NAV} brand="Painel CEO" subBrand="BilyFit HQ" requireRole="ceo">{children}</DashShell>
+    </GymDataProvider>
+  );
 }

@@ -96,6 +96,9 @@ const plansList = ["Mensal", "Trimestral", "Semestral", "Anual", "Black"];
 const goals = ["Hipertrofia", "Emagrecimento", "Condicionamento", "Saúde", "Performance"];
 const trainers = ["Prof. Marcos", "Prof. Daniela", "Prof. Henrique", "Prof. Carla", "Prof. Bruno"];
 
+// Distribute students across multiple gyms so the CEO consolidated view is meaningful
+const gymRoster = ["g-1", "g-1", "g-1", "g-1", "g-1", "g-1", "g-1", "g-1", "g-1", "g-1", "g-1", "g-1", "g-1", "g-1", "g-1", "g-2", "g-2", "g-2", "g-2", "g-2", "g-3", "g-3", "g-3", "g-3", "g-5", "g-5", "g-7", "g-7", "g-6", "g-4"];
+
 export const STUDENTS: Student[] = studentNames.map((name, i) => {
   const status = i % 11 === 0 ? "frozen" : i % 7 === 0 ? "inactive" : i % 5 === 0 ? "overdue" : "active";
   const paymentStatus = status === "overdue" ? "overdue" : i % 8 === 0 ? "pending" : "paid";
@@ -119,7 +122,7 @@ export const STUDENTS: Student[] = studentNames.map((name, i) => {
     paymentStatus,
     goal: goals[i % goals.length],
     trainer: trainers[i % trainers.length],
-    gymId: "g-1",
+    gymId: gymRoster[i] ?? "g-1",
   };
 });
 

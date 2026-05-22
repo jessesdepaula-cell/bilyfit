@@ -119,3 +119,17 @@ export function useGymData() {
   if (!ctx) throw new Error("useGymData must be used inside <GymDataProvider>");
   return ctx;
 }
+
+// Resolve the "current student" for the /portal experience.
+// Matches by email first, then by name. Falls back to the first student so the demo always renders.
+export function useCurrentStudent(identityEmailOrName?: string): Student | null {
+  const { students } = useGymData();
+  if (!identityEmailOrName) return students[0] ?? null;
+  const term = identityEmailOrName.toLowerCase();
+  return (
+    students.find((s) => s.email.toLowerCase() === term) ??
+    students.find((s) => s.name.toLowerCase() === term) ??
+    students[0] ??
+    null
+  );
+}

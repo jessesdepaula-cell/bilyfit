@@ -3,6 +3,7 @@ import Link from "next/link";
 import { useRouter, usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Logo } from "@/components/Logo";
+import { GlobalSearch } from "@/components/dashboard/GlobalSearch";
 import { getSession, logout } from "@/lib/auth";
 import type { User } from "@/lib/mock-data";
 import { Bell, Search, LogOut, ChevronDown, Menu, X, Settings, HelpCircle } from "lucide-react";
@@ -32,6 +33,18 @@ export function DashShell({
   const [user, setUser] = useState<User | null>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [profileOpen, setProfileOpen] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
+
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") {
+        e.preventDefault();
+        setSearchOpen(true);
+      }
+    };
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
+  }, []);
 
   useEffect(() => {
     const s = getSession();
@@ -113,11 +126,14 @@ export function DashShell({
           <div className="flex items-center justify-between gap-4 px-4 lg:px-8 py-4">
             <button onClick={() => setMobileOpen(true)} className="lg:hidden p-2 text-foreground"><Menu size={20} /></button>
             <div className="flex-1 max-w-xl">
-              <div className="relative">
+              <button
+                onClick={() => setSearchOpen(true)}
+                className="w-full relative flex items-center text-left input pl-10 py-2.5 text-dim hover:text-foreground transition cursor-text"
+              >
                 <Search size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-dim" />
-                <input type="text" placeholder="Buscar em todo o sistema..." className="input pl-10 py-2.5" />
-                <kbd className="hidden md:block absolute right-3 top-1/2 -translate-y-1/2 text-[10px] text-dim font-mono px-1.5 py-0.5 rounded border border-border">⌘K</kbd>
-              </div>
+                <span className="flex-1">Buscar em todo o sistema...</span>
+                <kbd className="hidden md:block text-[10px] text-dim font-mono px-1.5 py-0.5 rounded border border-border">⌘K</kbd>
+              </button>
             </div>
             <div className="flex items-center gap-2">
               <button className="relative p-2.5 rounded-xl glass hover:border-brand/40 transition" aria-label="Notificações">
@@ -147,6 +163,7 @@ export function DashShell({
         </header>
         <main className="flex-1 p-4 lg:p-8">{children}</main>
       </div>
+      <GlobalSearch open={searchOpen} onClose={() => setSearchOpen(false)} />
     </div>
   );
 }
