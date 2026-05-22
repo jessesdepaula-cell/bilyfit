@@ -3,7 +3,7 @@ import { DashShell, type NavGroup } from "@/components/dashboard/DashShell";
 import { GymDataProvider } from "@/lib/store";
 import {
   LayoutDashboard, Users, DollarSign, QrCode, Package, Activity,
-  Calendar, GraduationCap, Dumbbell, ClipboardList, MessageSquare, BarChart3, Settings
+  Calendar, GraduationCap, Dumbbell, ClipboardList, MessageSquare, BarChart3, Settings, ScanFace
 } from "lucide-react";
 
 const NAV: NavGroup[] = [
@@ -13,6 +13,7 @@ const NAV: NavGroup[] = [
   { title: "Alunos", items: [
     { href: "/gym/students", label: "Alunos", icon: Users, badge: 842 },
     { href: "/gym/checkin", label: "Check-in", icon: QrCode },
+    { href: "/gym/turnstile", label: "Catraca facial", icon: ScanFace, badge: "AI" },
     { href: "/gym/workouts", label: "Treinos", icon: Dumbbell },
     { href: "/gym/assessments", label: "Avaliações", icon: ClipboardList },
   ]},

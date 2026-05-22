@@ -6,7 +6,7 @@ import { DataTable, StatusBadge, TableToolbar } from "@/components/dashboard/Com
 import { CheckinPanel } from "@/components/gym/CheckinPanel";
 import { useGymData } from "@/lib/store";
 import { formatDateTime, cn } from "@/lib/utils";
-import { QrCode, ShieldOff, CheckCircle2, Activity, LogOut, Users, Clock } from "lucide-react";
+import { QrCode, ShieldOff, CheckCircle2, Activity, LogOut, Users, Clock, ScanFace, ArrowUpRight } from "lucide-react";
 import { toast } from "sonner";
 
 function isSameDay(a: Date, b: Date) {
@@ -52,6 +52,29 @@ export default function CheckinPage() {
   return (
     <>
       <PageHeader title="Check-in" subtitle="Controle de presença em tempo real" />
+
+      {/* Turnstile banner */}
+      <Link
+        href="/gym/turnstile"
+        className="card-3d p-5 mb-6 flex items-center gap-4 hover:border-brand/40 transition group relative overflow-hidden"
+      >
+        <div className="absolute -right-8 -top-8 w-40 h-40 rounded-full bg-brand/10 blur-3xl group-hover:bg-brand/20 transition" />
+        <div className="w-14 h-14 rounded-2xl bg-gradient-brand text-black flex items-center justify-center shrink-0 relative">
+          <ScanFace size={26} />
+        </div>
+        <div className="flex-1 relative">
+          <div className="flex items-center gap-2">
+            <h3 className="font-display text-lg font-bold">Catraca por reconhecimento facial</h3>
+            <span className="chip text-[10px] bg-brand/15 text-brand border-brand/30">AI · NOVO</span>
+          </div>
+          <p className="text-sm text-subtle mt-0.5">
+            Check-in automático: o aluno passa pela catraca e o sistema libera a entrada por biometria facial em segundos.
+          </p>
+        </div>
+        <div className="text-sm text-brand font-semibold flex items-center gap-1.5 shrink-0 relative">
+          Abrir catraca <ArrowUpRight size={14} />
+        </div>
+      </Link>
 
       {/* Top row: panel + totem + stats */}
       <div className="grid grid-cols-1 xl:grid-cols-3 gap-5 mb-6">

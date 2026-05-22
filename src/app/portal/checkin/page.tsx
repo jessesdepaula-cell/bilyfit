@@ -7,7 +7,7 @@ import { useCurrentStudent, useGymData } from "@/lib/store";
 import { GYMS, MODALITIES } from "@/lib/mock-data";
 import { getSession } from "@/lib/auth";
 import { formatDate, formatDateTime, initials } from "@/lib/utils";
-import { QrCode, ScanLine, Flame, CalendarCheck } from "lucide-react";
+import { QrCode, ScanLine, Flame, CalendarCheck, ScanFace, CheckCircle2 } from "lucide-react";
 
 export default function PortalCheckinPage() {
   const [identity, setIdentity] = useState<string | undefined>();
@@ -67,6 +67,21 @@ export default function PortalCheckinPage() {
           icon={Flame}
           color="text-warning"
         />
+      </div>
+
+      {/* Facial enrollment badge */}
+      <div className="card-3d p-4 mb-6 flex items-center gap-3 border-success/30 bg-success/5">
+        <div className="w-11 h-11 rounded-xl bg-success/15 text-success flex items-center justify-center shrink-0">
+          <ScanFace size={20} />
+        </div>
+        <div className="flex-1">
+          <div className="flex items-center gap-2">
+            <span className="font-semibold">Reconhecimento facial cadastrado</span>
+            <CheckCircle2 size={14} className="text-success" />
+          </div>
+          <p className="text-xs text-subtle">Passe pela catraca e sua entrada é registrada automaticamente — sem cartão, sem QR.</p>
+        </div>
+        <button className="btn-secondary text-xs py-2">Atualizar foto</button>
       </div>
 
       <div className="grid lg:grid-cols-2 gap-5 mb-6">
